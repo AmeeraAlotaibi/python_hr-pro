@@ -26,9 +26,6 @@ class Manager(Employee):
         super().__init__(name, age, salary, employment_year)
         self.bonus_percentage = bonus_percentage
 
-    def get_working_years(self):
-        return super().get_working_years()
-
     def get_bonus(self):
         return int(self.bonus_percentage * self.salary)
 
@@ -38,17 +35,9 @@ class Manager(Employee):
 
 
 # Displays to the user the available options (does not return anything)
-def options():
+def options(options):
     print("---------\n")
     print("Options: ")
-    options = [
-        "Show Employees",
-        "Show Managers",
-        "Add An Employee",
-        "Add A Manager",
-        "Exit"
-    ]
-
     for i, option in enumerate(options, 1):
         print(f"    {i}. {option}")
     # takes user input to get the option chosen
@@ -96,35 +85,41 @@ def main():
     # main code here
     employees = []
     managers = []
-    to_exit = True
+
+    options_list = [
+        "Show Employees",
+        "Show Managers",
+        "Add An Employee",
+        "Add A Manager",
+        "Exit"
+    ]
+
     # start of program
     print("Welcome to HR Pro 2022")
     # to loop through the options until the user exits
-    while to_exit:
-        user_choice = options()
+    user_choice = 0
+    while user_choice != 5:
+        user_choice = options(options_list)
         if user_choice == 1:
             print(">>> Employees <<<\n")
             for i, employee in enumerate(employees, 1):
-                print(f"{i}. {employee.__str__()}")
+                print(f"{i}. {employee}")
 
         elif user_choice == 2:
             print(">>> Managers <<<\n")
             for i, manager in enumerate(managers, 1):
-                print(f"{i}. {manager.__str__()}")
+                print(f"{i}. {manager}")
 
         elif user_choice == 3:
-            employee = add_employee()
-            employees.append(employee)
+            employees.append(add_employee())
 
         elif user_choice == 4:
-            manager = add_manager()
-            managers.append(manager)
+            managers.append(add_manager())
 
-        elif user_choice == 5:
-            print("You have exited the program!")
-            to_exit = False
-        else:
+        elif user_choice > 5:
             print("Enter a number from the list!")
+
+    print("You have exited the program!")
 
 
 if __name__ == '__main__':
